@@ -17,6 +17,7 @@ export const Row = ({ player, rank, maxValues }) => {
       <td>
         <span className={positionClass}>{player.position}</span>
       </td>
+      <td className={`stat ${isMax("matches") ? "stat-highlight" : ""}`}>{player.matches}</td>
       <td className={`stat ${isMax("wins") ? "stat-highlight" : ""}`}>{player.wins}</td>
       <td className={`stat ${isMax("draws") ? "stat-highlight" : ""}`}>{player.draws}</td>
       <td className={`stat ${isMax("losses") ? "stat-highlight" : ""}`}>{player.losses}</td>

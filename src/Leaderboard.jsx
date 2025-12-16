@@ -4,6 +4,7 @@ import { Row } from "./Row.jsx";
 const columns = [
   { key: "name", label: "Player", className: "player-col", sortable: true },
   { key: "position", label: "Pos", className: "position-col", sortable: true },
+  { key: "matches", label: "MP", className: "stat-col", sortable: true },
   { key: "wins", label: "W", className: "stat-col", sortable: true },
   { key: "draws", label: "D", className: "stat-col", sortable: true },
   { key: "losses", label: "L", className: "stat-col", sortable: true },
@@ -62,7 +63,7 @@ export const Leaderboard = ({ players }) => {
 
   // Calculate max values for each stat column
   const maxValues = useMemo(() => {
-    const statKeys = ["wins", "draws", "losses", "winPct", "lossPct", "cleanSheets", "goals", "hatTricks"];
+    const statKeys = ["matches", "wins", "draws", "losses", "winPct", "lossPct", "cleanSheets", "goals", "hatTricks"];
     const maxes = {};
     statKeys.forEach((key) => {
       maxes[key] = Math.max(...playersWithPct.map((p) => p[key]));
@@ -109,6 +110,7 @@ export const Leaderboard = ({ players }) => {
       </div>
 
       <div className="legend">
+        <span><strong>MP</strong> Matches Played</span>
         <span><strong>W</strong> Wins</span>
         <span><strong>D</strong> Draws</span>
         <span><strong>L</strong> Losses</span>
