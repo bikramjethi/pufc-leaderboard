@@ -396,6 +396,24 @@ body::before {
   margin-right: 0.25rem;
 }
 
+.legend-divider {
+  width: 1px;
+  height: 1rem;
+  background: var(--border-color);
+  margin: 0 0.5rem;
+}
+
+.legend-highlight {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.highlight-sample {
+  color: var(--gold) !important;
+  font-weight: 700;
+}
+
 /* Footer */
 .footer {
   padding: 2rem;

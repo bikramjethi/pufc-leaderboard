@@ -117,6 +117,8 @@ export const Leaderboard = ({ players }) => {
         <span><strong>CS</strong> Clean Sheets</span>
         <span><strong>G</strong> Goals</span>
         <span><strong>HT</strong> Hat Tricks</span>
+        <span className="legend-divider"></span>
+        <span className="legend-highlight"><strong className="highlight-sample">123</strong> Max</span>
       </div>
     </div>
   );
