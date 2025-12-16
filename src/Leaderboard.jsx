@@ -7,10 +7,22 @@ const columns = [
   { key: "wins", label: "W", className: "stat-col", sortable: true },
   { key: "draws", label: "D", className: "stat-col", sortable: true },
   { key: "losses", label: "L", className: "stat-col", sortable: true },
+  { key: "winPct", label: "W%", className: "stat-col", sortable: true },
+  { key: "lossPct", label: "L%", className: "stat-col", sortable: true },
   { key: "cleanSheets", label: "CS", className: "stat-col", sortable: true },
   { key: "goals", label: "G", className: "stat-col", sortable: true },
   { key: "hatTricks", label: "HT", className: "stat-col", sortable: true },
 ];
+
+// Helper to calculate percentages
+const calcPercentages = (player) => {
+  const total = player.wins + player.draws + player.losses;
+  return {
+    ...player,
+    winPct: total > 0 ? (player.wins / total) * 100 : 0,
+    lossPct: total > 0 ? (player.losses / total) * 100 : 0,
+  };
+};
 
 export const Leaderboard = ({ players }) => {
   const [sortKey, setSortKey] = useState("wins");
@@ -27,8 +39,13 @@ export const Leaderboard = ({ players }) => {
     }
   };
 
+  // Add calculated percentages to players
+  const playersWithPct = useMemo(() => {
+    return players.map(calcPercentages);
+  }, [players]);
+
   const sortedPlayers = useMemo(() => {
-    return [...players].sort((a, b) => {
+    return [...playersWithPct].sort((a, b) => {
       const aVal = a[sortKey];
       const bVal = b[sortKey];
 
@@ -41,17 +58,17 @@ export const Leaderboard = ({ players }) => {
       // Handle numeric comparison
       return sortDirection === "asc" ? aVal - bVal : bVal - aVal;
     });
-  }, [players, sortKey, sortDirection]);
+  }, [playersWithPct, sortKey, sortDirection]);
 
   // Calculate max values for each stat column
   const maxValues = useMemo(() => {
-    const statKeys = ["wins", "draws", "losses", "cleanSheets", "goals", "hatTricks"];
+    const statKeys = ["wins", "draws", "losses", "winPct", "lossPct", "cleanSheets", "goals", "hatTricks"];
     const maxes = {};
     statKeys.forEach((key) => {
-      maxes[key] = Math.max(...players.map((p) => p[key]));
+      maxes[key] = Math.max(...playersWithPct.map((p) => p[key]));
     });
     return maxes;
-  }, [players]);
+  }, [playersWithPct]);
 
   const getSortIndicator = (key) => {
     if (sortKey !== key) return <span className="sort-indicator">⇅</span>;
@@ -95,6 +112,8 @@ export const Leaderboard = ({ players }) => {
         <span><strong>W</strong> Wins</span>
         <span><strong>D</strong> Draws</span>
         <span><strong>L</strong> Losses</span>
+        <span><strong>W%</strong> Win Rate</span>
+        <span><strong>L%</strong> Loss Rate</span>
         <span><strong>CS</strong> Clean Sheets</span>
         <span><strong>G</strong> Goals</span>
         <span><strong>HT</strong> Hat Tricks</span>

@@ -366,6 +366,11 @@ body::before {
   font-weight: 700;
 }
 
+.stat-pct {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
 .stat-highlight {
   color: var(--gold) !important;
   font-weight: 700;
