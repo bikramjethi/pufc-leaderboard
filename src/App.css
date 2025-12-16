@@ -360,6 +360,11 @@ body::before {
   font-weight: 700;
 }
 
+.stat-highlight {
+  color: var(--gold) !important;
+  font-weight: 700;
+}
+
 /* Legend */
 .legend {
   display: flex;

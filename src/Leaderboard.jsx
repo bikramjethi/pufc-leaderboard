@@ -43,6 +43,16 @@ export const Leaderboard = ({ players }) => {
     });
   }, [players, sortKey, sortDirection]);
 
+  // Calculate max values for each stat column
+  const maxValues = useMemo(() => {
+    const statKeys = ["wins", "draws", "losses", "cleanSheets", "goals", "hatTricks"];
+    const maxes = {};
+    statKeys.forEach((key) => {
+      maxes[key] = Math.max(...players.map((p) => p[key]));
+    });
+    return maxes;
+  }, [players]);
+
   const getSortIndicator = (key) => {
     if (sortKey !== key) return <span className="sort-indicator">⇅</span>;
     return (
@@ -75,7 +85,7 @@ export const Leaderboard = ({ players }) => {
           </thead>
           <tbody>
             {sortedPlayers.map((player, index) => (
-              <Row key={player.id} player={player} rank={index + 1} />
+              <Row key={player.id} player={player} rank={index + 1} maxValues={maxValues} />
             ))}
           </tbody>
         </table>
