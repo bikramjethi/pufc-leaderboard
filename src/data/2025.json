@@ -97,6 +97,17 @@
     "cleanSheets": 0,
     "goals": 5,
     "hatTricks": 0
+  },
+  {
+    "id": 10,
+    "name": "Leo Santos",
+    "position": "ALL",
+    "wins": 6,
+    "losses": 3,
+    "draws": 2,
+    "cleanSheets": 2,
+    "goals": 7,
+    "hatTricks": 1
   }
 ]
 
